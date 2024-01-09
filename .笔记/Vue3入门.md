@@ -1,4 +1,5 @@
 # 认识Vue3
+
 ## 1. Vue2 选项式 API vs Vue3 组合式API
 
 ```vue
@@ -29,51 +30,64 @@ const addCount = ()=> count.value++
 特点：
 
 1. 代码量变少
-2. 分散式维护变成集中式维护
-## 2. Vue3的优势
-![image.png](assets/01.png)
 
+2. 分散式维护变成集中式维护
+   
+   ## 2. Vue3的优势
+   
+   ![image.png](assets/01.png)
 
 # 使用create-vue搭建Vue3项目
-## 1. 认识create-vue
-> create-vue是Vue官方新的脚手架工具，底层切换到了 vite （下一代前端工具链），为开发提供极速响应
 
+## 1. 认识create-vue
+
+> create-vue是Vue官方新的脚手架工具，底层切换到了 vite （下一代前端工具链），为开发提供极速响应
 
 ![image.png](assets/2.png)
 
 ## 2. 使用create-vue创建项目
+
 > 前置条件 - 已安装16.0或更高版本的Node.js
 
 执行如下命令，这一指令将会安装并执行 create-vue
+
 ```bash
 npm init vue@latest
 ```
 
 ![image.png](assets/3.png)
+
 # 熟悉项目和关键文件
+
 ![image.png](assets/4.png)
 
 # 组合式API - setup选项
+
 ## 1. setup选项的写法和执行时机
+
 写法
+
 ```vue
 <script>
   export default {
     setup(){
-      
+
     },
     beforeCreate(){
-      
+
     }
   }
 </script>
 ```
+
 执行时机
+
 > 在beforeCreate钩子之前执行
 
 ![image.png](assets/5.png)
 
 ## 2. setup中写代码的特点
+
 > 在setup函数中写的数据和方法需要在末尾以对象的方式return，才能给模版使用
 
 ```vue
@@ -93,7 +107,9 @@ npm init vue@latest
   }
 </script>
 ```
+
 ## 3. <script setup>语法糖
+
 > script标签添加 setup标记，不需要再写导出语句，默认会添加导出语句
 
 ```vue
@@ -106,9 +122,10 @@ npm init vue@latest
 ```
 
 # 组合式API - reactive和ref函数
-## 1. reactive
-> 接受对象类型数据的参数传入并返回一个响应式的对象
 
+## 1. reactive
+
+> 接受对象类型数据的参数传入并返回一个响应式的对象
 
 ```vue
 <script setup>
@@ -131,6 +148,7 @@ npm init vue@latest
 ```
 
 ## 2. ref
+
 > 接收简单类型或者对象类型的数据传入并返回一个响应式的对象
 
 ```vue
@@ -149,17 +167,24 @@ npm init vue@latest
   <button @click="setCount">{{count}}</button>
 </template>
 ```
+
 ## 3. reactive 对比 ref
 
 1. 都是用来生成响应式数据
+
 2. 不同点
+   
    1. reactive不能处理简单类型的数据
    2. ref参数类型支持更好，但是必须通过.value做访问修改
    3. ref函数内部的实现依赖于reactive函数
+
 3. 在实际工作中的推荐
+   
    1. 推荐使用ref函数，减少记忆负担，小兔鲜项目都使用ref
-# 组合式API - computed
-> 计算属性基本思想和Vue2保持一致，组合式API下的计算属性只是修改了API写法
+      
+      # 组合式API - computed
+      
+      > 计算属性基本思想和Vue2保持一致，组合式API下的计算属性只是修改了API写法
 
 ```vue
 <script setup>
@@ -176,10 +201,13 @@ const list = ref([1,2,3,4,5,6,7,8])
 const filterList = computed(item=>item > 2)
 </script>
 ```
+
 # 组合式API - watch
+
 > 侦听一个或者多个数据的变化，数据变化时执行回调函数，俩个额外参数 immediate控制立刻执行，deep开启深度侦听
 
 ## 1. 侦听单个数据
+
 ```vue
 <script setup>
   // 1. 导入watch
@@ -191,7 +219,9 @@ const filterList = computed(item=>item > 2)
   })
 </script>
 ```
+
 ## 2. 侦听多个数据
+
 > 侦听多个数据，第一个参数可以改写成数组的写法
 
 ```vue
@@ -206,9 +236,10 @@ const filterList = computed(item=>item > 2)
   })
 </script>
 ```
-## 3. immediate
-> 在侦听器创建时立即出发回调，响应式数据变化之后继续执行回调
 
+## 3. immediate
+
+> 在侦听器创建时立即出发回调，响应式数据变化之后继续执行回调
 
 ```vue
 <script setup>
@@ -223,7 +254,9 @@ const filterList = computed(item=>item > 2)
   })
 </script>
 ```
+
 ## 4. deep
+
 > 通过watch监听的ref对象默认是浅层侦听的，直接修改嵌套的对象属性不会触发回调执行，需要开启deep
 
 ```vue
@@ -256,10 +289,15 @@ const filterList = computed(item=>item > 2)
 </script>
 
 ```
+
 # 组合式API - 生命周期函数
+
 ## 1. 选项式对比组合式
+
 ![image.png](assets/6.png)
+
 ## 2. 生命周期函数基本使用
+
 > 1. 导入生命周期函数
 > 2. 执行生命周期函数，传入回调
 
@@ -271,7 +309,9 @@ onMounted(()=>{
 })
 </script>
 ```
+
 ## 3. 执行多次
+
 > 生命周期函数执行多次的时候，会按照顺序依次执行
 
 ```vue
@@ -286,57 +326,72 @@ onMounted(()=>{
 })
 </script>
 ```
+
 # 组合式API - 父子通信
+
 ## 1. 父传子
+
 > 基本思想
+> 
 > 1. 父组件中给子组件绑定属性
 > 2. 子组件内部通过props选项接收数据
-
 
 ![image.png](assets/7.png)
 
 ## 2. 子传父
+
 > 基本思想
+> 
 > 1. 父组件中给子组件标签通过@绑定事件
 > 2. 子组件内部通过 emit 方法触发事件
-
 
 ![image.png](assets/8.png)
 
 # 组合式API - 模版引用
+
 > 概念：通过 ref标识 获取真实的 dom对象或者组件实例对象
 
 ## 1. 基本使用
+
 > 实现步骤：
+> 
 > 1. 调用ref函数生成一个ref对象
 > 2. 通过ref标识绑定ref对象到标签
 
 ![image.png](assets/9.png)
+
 ## 2. defineExpose
+
 > 默认情况下在 <script setup>语法糖下组件内部的属性和方法是不开放给父组件访问的，可以通过defineExpose编译宏指定哪些属性和方法容许访问
 > 说明：指定testMessage属性可以被访问到
 
 ![image.png](assets/10.png)
+
 # 组合式API - provide和inject
+
 ## 1. 作用和场景
+
 > 顶层组件向任意的底层组件传递数据和方法，实现跨层组件通信
 
 ![image.png](assets/11.png)
 
 ## 2. 跨层传递普通数据
+
 > 实现步骤
+> 
 > 1. 顶层组件通过 `provide` 函数提供数据
 > 2. 底层组件通过 `inject` 函数提供数据
-
 
 ![image.png](assets/12.png)
 
 ## 3. 跨层传递响应式数据
+
 > 在调用provide函数时，第二个参数设置为ref对象
 
 ![image.png](assets/13.png)
 
 ## 4. 跨层传递方法
+
 > 顶层组件可以向底层组件传递方法，底层组件调用方法修改顶层组件的数据
 
 ![image.png](assets/14.png)
@@ -381,30 +436,47 @@ onMounted(()=>{
 
 ![image-20230704083056549](assets/image-20230704083056549.png)
 
+1. 代码实例
+   App.vue
+   
+   ```vue
+   <script setup>
+   import MyInput from '@/components/MyInput.vue'
+   import { ref } from 'vue';
+   
+   const txt = ref('imxiaochen')
+   </script>
+   
+   <template>
+     <div class=''>
+       <MyInput v-model="txt"></MyInput>
+       {{ txt }}
+     </div>
+   </template>
+   
+   <style scoped>
+   
+   </style>
+   ```
 
+       MyInput.vue
 
-生效需要配置 vite.config.js
+```vue
+<script setup>
+const modelValue = defineModel()
 
-```jsx
-import { fileURLToPath, URL } from 'node:url'
+</script>
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+<template>
+  <div class=''>
+    <input type="text"
+    :value="modelValue"
+    @input="modelValue = $event.target.value"
+    >
+  </div>
+</template>
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue({
-      script: {
-        defineModel: true
-      }
-    }),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
+<style scoped>
+
+</style>        
 ```
-
