@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import { ref, computed } from "vue"
 
 // 定义store
-export const useCountStore = defineStore('counter',() => {
+export const useCountStore = defineStore('counter', () => {
   // 声明数据 state
   const count = ref(520)
   const msg = ref('Hello Pinia')
@@ -24,5 +24,11 @@ export const useCountStore = defineStore('counter',() => {
     addCount,
     subCount,
     doubleCount
+  }
+}, {
+  // persist: true // 开启当前模块数据持久化
+  persist:{
+    key: 'pinia-counter', // 本地存储的key
+    paths: ['count'] // 需要持久化的数据
   }
 })
